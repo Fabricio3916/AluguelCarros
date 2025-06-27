@@ -1,4 +1,4 @@
-package dev.Fabricio.AluguelCarros.model;
+package dev.Fabricio.AluguelCarros.model.entity;
 
 
 import jakarta.persistence.*;
