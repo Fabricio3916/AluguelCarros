@@ -1,4 +1,4 @@
 package dev.Fabricio.AluguelCarros.model.dto;
 
-public class ClienteDTO {
+public record ClienteDTO() {
 }
