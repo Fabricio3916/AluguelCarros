@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "tb_carro")
 @AllArgsConstructor
@@ -30,8 +32,11 @@ public class Carro {
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    @Column(name = "data_de_alocacao")
+    private LocalDate dataAlocacao;
+
     @ManyToOne
-    @JoinColumn(name = "cliente_id")
+    @JoinColumn(name = "id_cliente")
     private Cliente cliente;
 
 }

@@ -24,8 +24,8 @@ public class Cliente {
 
     private String telefone;
 
-    @Column(name = "data_de_alocação")
-    private LocalDate dataAlocacao;
+    @Column(name = "data_de_criacao")
+    private LocalDate dataCriacao;
 
     @OneToMany(mappedBy = "cliente")
     private List<Carro> carrosAlugados;
