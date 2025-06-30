@@ -24,6 +24,10 @@ public class CarroService {
         return repository.findAll();
     }
 
+    public Carro listarPorId(Long id){
+        return repository.findById(id).orElse(null);
+    }
+
     public void deletar(Long id){
         repository.deleteById(id);
     }
