@@ -2,8 +2,18 @@ package dev.Fabricio.AluguelCarros.model.enums;
 
 public enum Marca {
 
-    DISPONIVEL,
-    ALUGADO,
-    EM_MANUTENCAO
 
-}
+
+    TOYOTA,
+    HONDA,
+    VOLKSWAGEN,
+    FORD,
+    CHEVROLET,
+    RENAULT,
+    FIAT,
+    HYUNDAI,
+    NISSAN,
+    BMW,
+    MERCEDES
+
+    }
