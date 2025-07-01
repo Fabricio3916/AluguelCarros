@@ -1,6 +1,8 @@
 package dev.Fabricio.AluguelCarros.service;
 
+import dev.Fabricio.AluguelCarros.model.dto.CarroDTO;
 import dev.Fabricio.AluguelCarros.model.entity.Carro;
+import dev.Fabricio.AluguelCarros.model.mapper.CarroMapper;
 import dev.Fabricio.AluguelCarros.repository.CarroRepository;
 import org.springframework.stereotype.Service;
 
@@ -10,33 +12,45 @@ import java.util.Optional;
 @Service
 public class CarroService {
 
-    private final CarroRepository repository;
 
-    public CarroService(CarroRepository repository) {
+    private CarroRepository repository;
+    private CarroMapper mapper;
+
+    public CarroService(CarroRepository repository, CarroMapper mapper) {
         this.repository = repository;
+        this.mapper = mapper;
     }
 
-    public Carro cadastrar(Carro carro){
-        return repository.save(carro);
+    public CarroDTO cadastrar(CarroDTO carroDTO){
+        Carro carro = mapper.map(carroDTO);
+        return mapper.map(repository.save(carro));
+
     }
 
-    public List<Carro> listar(){
-        return repository.findAll();
+    public List<CarroDTO> listar(){
+        List<Carro> carros = repository.findAll();
+        return carros.stream()
+                .map(mapper::map)
+                .toList();
+
     }
 
-    public Carro listarPorId(Long id){
-        return repository.findById(id).orElse(null);
+    public CarroDTO listarPorId(Long id){
+        Optional<Carro> carroPorId = repository.findById(id);
+        return carroPorId.map(mapper::map).orElse(null);
     }
 
     public void deletar(Long id){
         repository.deleteById(id);
     }
 
-    public Carro alterar(Long id, Carro carroNovo){
+    public CarroDTO alterar(Long id, CarroDTO carroAtualizado){
         Optional<Carro> carro = repository.findById(id);
         if(carro.isPresent()){
-            carroNovo.setId(id);
-            return repository.save(carroNovo);
+            Carro carroAlterado = mapper.map(carroAtualizado);
+            carroAlterado.setId(id);
+            Carro carroSalvo = repository.save(carroAlterado);
+            return mapper.map(carroSalvo);
         }
         return null;
     }

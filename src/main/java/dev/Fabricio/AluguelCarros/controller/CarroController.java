@@ -1,6 +1,7 @@
 package dev.Fabricio.AluguelCarros.controller;
 
 
+import dev.Fabricio.AluguelCarros.model.dto.CarroDTO;
 import dev.Fabricio.AluguelCarros.model.entity.Carro;
 import dev.Fabricio.AluguelCarros.service.CarroService;
 import org.springframework.http.HttpStatus;
@@ -20,22 +21,21 @@ public class CarroController {
     }
 
     @PostMapping("/criar")
-    public ResponseEntity<String> criarCarro(@RequestBody Carro novoCarro){
-        Carro carro = service.cadastrar(novoCarro);
+    public ResponseEntity<String> criarCarro(@RequestBody CarroDTO novoCarro){
+        CarroDTO carro = service.cadastrar(novoCarro);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body("Carro cadastrado com sucesso: " + carro.getModelo() + " (ID) : " + carro.getId());
 
     }
-
     @GetMapping("/listar")
-    public ResponseEntity<List<Carro>> listarCarros(){
-        List<Carro> carros = service.listar();
+    public ResponseEntity<List<CarroDTO>> listarCarros(){
+        List<CarroDTO> carros = service.listar();
         return ResponseEntity.ok(carros);
     }
 
     @GetMapping("/listarId/{id}")
     public ResponseEntity<?> listarPorId(@PathVariable Long id){
-        Carro carro = service.listarPorId(id);
+        CarroDTO carro = service.listarPorId(id);
         if (carro != null){
             return ResponseEntity.ok(carro);
         }else {
@@ -56,9 +56,9 @@ public class CarroController {
     }
 
     @PutMapping("/alterar/{id}")
-    public ResponseEntity<?> alterarCarro(@PathVariable Long id, @RequestBody Carro carroalterado){
+    public ResponseEntity<?> alterarCarro(@PathVariable Long id, @RequestBody CarroDTO carroalterado){
         if(service.listarPorId(id) != null){
-            Carro novoCarro = service.alterar(id,carroalterado);
+            CarroDTO novoCarro = service.alterar(id,carroalterado);
             return ResponseEntity.ok(novoCarro);
         } else{
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
