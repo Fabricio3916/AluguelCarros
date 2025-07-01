@@ -2,8 +2,6 @@ package dev.Fabricio.AluguelCarros.model.enums;
 
 public enum Marca {
 
-
-
     TOYOTA,
     HONDA,
     VOLKSWAGEN,
