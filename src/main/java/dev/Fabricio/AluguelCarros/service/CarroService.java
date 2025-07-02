@@ -49,8 +49,7 @@ public class CarroService {
         if(carro.isPresent()){
             Carro carroAlterado = mapper.map(carroAtualizado);
             carroAlterado.setId(id);
-            Carro carroSalvo = repository.save(carroAlterado);
-            return mapper.map(carroSalvo);
+            return mapper.map(repository.save(carroAlterado));
         }
         return null;
     }
