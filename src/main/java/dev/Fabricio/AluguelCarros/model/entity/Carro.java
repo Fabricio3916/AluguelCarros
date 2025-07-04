@@ -1,5 +1,6 @@
 package dev.Fabricio.AluguelCarros.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import dev.Fabricio.AluguelCarros.model.enums.Marca;
 import dev.Fabricio.AluguelCarros.model.enums.Status;
 import jakarta.persistence.*;
@@ -37,6 +38,7 @@ public class Carro {
 
     @ManyToOne
     @JoinColumn(name = "id_cliente")
+    @JsonIgnore
     private Cliente cliente;
 
 }

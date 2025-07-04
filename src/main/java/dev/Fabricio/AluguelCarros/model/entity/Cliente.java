@@ -1,6 +1,7 @@
 package dev.Fabricio.AluguelCarros.model.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,6 +29,7 @@ public class Cliente {
     private LocalDate dataCriacao;
 
     @OneToMany(mappedBy = "cliente")
+    @JsonIgnore
     private List<Carro> carrosAlugados;
 
 
