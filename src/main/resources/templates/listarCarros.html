@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Lista de Clientes</title>
+    <title>Lista de Carros</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -42,11 +42,6 @@
             background-color: #f0f4f8;
         }
 
-        ul {
-            padding-left: 20px;
-            margin: 0;
-        }
-
         a {
             display: inline-block;
             margin-right: 8px;
@@ -63,7 +58,6 @@
             background-color: #2980b9;
         }
 
-        /* Botão especial de deletar */
         a:last-child {
             background-color: #e74c3c;
         }
@@ -72,8 +66,8 @@
             background-color: #c0392b;
         }
 
-        /* Estilo do botão 'Lista de Carros' */
-        a.btn-listarCarros {
+        /* Botão "Voltar para Clientes" */
+        a.btn-voltarClientes {
             display: block;
             width: fit-content;
             margin: 0 auto 30px auto;
@@ -88,7 +82,7 @@
             transition: background-color 0.3s ease, transform 0.2s ease;
         }
 
-        a.btn-listarCarros:hover {
+        a.btn-voltarClientes:hover {
             background-color: #2980b9;
             transform: translateY(-2px);
         }
@@ -103,7 +97,7 @@
                 font-size: 12px;
             }
 
-            a.btn-listarCarros {
+            a.btn-voltarClientes {
                 padding: 10px 16px;
                 font-size: 14px;
             }
@@ -112,45 +106,40 @@
 </head>
 <body>
 
-<h1>Lista de Clientes</h1>
+<h1>Lista de Carros</h1>
 
-<a class="btn-listarCarros" th:href="@{/carros/ui/listar}">Lista de Carros</a>
+<a class="btn-voltarClientes" th:href="@{/clientes/ui/listar}">Lista de Clientes</a>
 
 <table>
     <thead>
     <tr>
         <th>Id</th>
-        <th>Nome</th>
-        <th>Telefone</th>
-        <th>Data de Registro</th>
-        <th>Carros Alugados (Modelo, Placa)</th>
+        <th>Marca</th>
+        <th>Modelo</th>
+        <th>Placa</th>
+        <th>Cor</th>
+        <th>Status</th>
+        <th>Data de Alocação</th>
+        <th>Cliente (Nome)</th>
         <th>Ações</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="cliente : ${clientes}">
-        <td th:text="${cliente.id}"></td>
-        <td th:text="${cliente.nome}"></td>
-        <td th:text="${cliente.telefone}"></td>
-        <td th:text="${#temporals.format(cliente.dataCriacao, 'dd/MM/yyyy')}"></td>
-
+    <tr th:each="carro : ${carros}">
+        <td th:text="${carro.id}"></td>
+        <td th:text="${carro.marca}"></td>
+        <td th:text="${carro.modelo}"></td>
+        <td th:text="${carro.placa}"></td>
+        <td th:text="${carro.cor}"></td>
+        <td th:text="${carro.status}"></td>
+        <td th:text="${#temporals.format(carro.dataAlocacao, 'dd/MM/yyyy')}"></td>
         <td>
-            <div th:if="${not #lists.isEmpty(cliente.carrosAlugados)}">
-                <ul>
-                    <li th:each="carro : ${cliente.carrosAlugados}">
-                        <span th:text="${carro.modelo}"></span>, Placa: <span th:text="${carro.placa}"></span>
-                    </li>
-                </ul>
-            </div>
-
-            <div th:if="${#lists.isEmpty(cliente.carrosAlugados)}">
-                <span>Nenhum carro alugado.</span>
-            </div>
+            <span th:if="${carro.cliente != null}" th:text="${carro.cliente.nome}"></span>
+            <span th:if="${carro.cliente == null}">Nenhum cliente</span>
         </td>
-
         <td>
-            <a th:href="@{'/clientes/editar/' + ${cliente.id}}">Alterar</a>
-            <a th:href="@{/clientes/ui/deletar/{id}(id=${cliente.id})}">Deletar</a>
+            <a th:href="@{'/carros/editar/' + ${carro.id}}">Alterar</a>
+            <a th:href="@{/carros/ui/deletar/{id}(id=${carro.id})}">Deletar</a>
         </td>
     </tr>
     </tbody>
